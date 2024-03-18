@@ -31,18 +31,13 @@ function App() {
 
     fetch('https://en.wikinews.org/w/api.php', {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams(data).toString(),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((result) => {
         // Handle the API response
         console.log(result);
@@ -51,36 +46,36 @@ function App() {
         // Handle any errors
         console.error(error);
       });
+  };
 
+  return (
+    <Grid justify="center" spacing={2} style={{margin:40}}>
+      <h1>Post the Wiki News</h1>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Title"
+          value={title}
+          onChange={handleTitleChange}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          label="Content"
+          value={content}
+          onChange={handleContentChange}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          multiline
+          rows={4}
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Post
+        </Button>
+      </form>
+    </Grid>
+  );
+}
 
-    return (
-      <Grid justify="center" spacing={2} style={{ margin: 40 }}>
-        <h1>Post the Wiki News</h1>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="Content"
-            value={content}
-            onChange={handleContentChange}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            multiline
-            rows={4}
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Post
-          </Button>
-        </form>
-      </Grid>
-    );
-  }
-
-  export default App;
+export default App;
