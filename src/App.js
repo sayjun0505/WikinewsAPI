@@ -31,6 +31,7 @@ function App() {
 
     fetch('https://en.wikinews.org/w/api.php', {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Access-Control-Allow-Origin': '*'
